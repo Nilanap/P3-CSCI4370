@@ -1,6 +1,20 @@
 # P3-CSCI4370
 Study Buddy Project Plan and Database Design
 
+## Building and Running
+
+1. Open `src/main/resources/application.properties` and change `spring.datasource.url`, `spring.datasource.username`, and `spring.datasource.password` to the URL the database will be stored at, the username to log in with, and the password to log in with, respectively.
+2. If it does not already exist, create the database at the URL you specified using the provided `database.sql` file.
+3. Run the following command:
+
+```
+mvn spring-boot:run --% -Dspring-boot.run.arguments="--server.port=8081"
+```
+
+This will host the website on `http://localhost:8081/`.
+
+----
+
 Title for the Project
 
 Study Buddy: A Platform for Connecting Classmates for Collaborative Study Sessions
