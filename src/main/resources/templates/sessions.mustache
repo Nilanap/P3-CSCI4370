@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="home-container">
+        <h1>Upcoming Study Sessions</h1>
+
+        {{#errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/errorMessage}}
+        {{#successMessage}}
+        <p class="success">{{successMessage}}</p>
+        {{/successMessage}}
+
+        {{#upcomingSessions}}
+        <div class="session-card">
+            <p><strong>Study Session with {{partner.firstName}} {{partner.lastName}}</strong></p>
+            <p>Date: {{studyDate}}</p>
+            <p>Time: {{startTimeFormatted}} to {{endTimeFormatted}}</p>
+        </div>
+        {{/upcomingSessions}}
+        {{^upcomingSessions}}
+        <p class="no-data">No upcoming study sessions.</p>
+        {{/upcomingSessions}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

@@ -1,0 +1,140 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fa;
+    color: #333;
+}
+
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #ffffff;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #0056b3;
+}
+
+h1, h2, h3 {
+    color: #222;
+}
+
+h1 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin: 30px 0 15px;
+}
+
+h3 {
+    font-size: 1.4em;
+    margin: 0 0 10px;
+}
+
+.error {
+    color: #d32f2f;
+    background-color: #ffebee;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.success {
+    color: #2e7d32;
+    background-color: #e8f5e9;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.availability-card, .request-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.availability-card p, .request-card p {
+    margin: 8px 0;
+    font-size: 1.1em;
+}
+
+.no-data, .no-shared {
+    color: #666;
+    font-style: italic;
+    margin: 10px 0;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.request-btn, .approve-btn, .reject-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.request-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.approve-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.request-btn:hover {
+    background-color: #0056b3;
+}
+
+.approve-btn:hover {
+    background-color: #218838;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 30px;
+    color: #666;
+}

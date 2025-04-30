@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="profile-container">
+        <h1>{{profileUser.firstName}} {{profileUser.lastName}}'s Profile</h1>
+        
+        {{#errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/errorMessage}}
+        {{#successMessage}}
+        <p class="success">{{successMessage}}</p>
+        {{/successMessage}}
+
+        {{#isOwnProfile}}
+        <h2>Add a Class</h2>
+        <form method="post" action="/profile/add-class">
+            <label for="classCode">Class Code (e.g., CSCI4370):</label>
+            <input type="text" id="classCode" name="classCode" required>
+            <button type="submit">Add Class</button>
+        </form>
+        {{/isOwnProfile}}
+        {{^isOwnProfile}}
+        {{#isFollowing}}
+        <form method="post" action="/profile/unfollow" style="display:inline;">
+            <input type="hidden" name="userId" value="{{profileUser.userId}}">
+            <button type="submit" class="follow-btn unfollow" title="Unfollow">★ Unfollow</button>
+        </form>
+        {{/isFollowing}}
+        {{^isFollowing}}
+        <form method="post" action="/profile/follow" style="display:inline;">
+            <input type="hidden" name="userId" value="{{profileUser.userId}}">
+            <button type="submit" class="follow-btn follow" title="Follow">☆ Follow</button>
+        </form>
+        {{/isFollowing}}
+        {{/isOwnProfile}}
+
+        <h2>Classes</h2>
+        {{#classes}}
+        <div class="class-item">
+            <p>{{classCode}} - {{className}}</p>
+        </div>
+        {{/classes}}
+        {{^classes}}
+        <p>{{profileUser.firstName}} is not enrolled in any classes yet.</p>
+        {{/classes}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

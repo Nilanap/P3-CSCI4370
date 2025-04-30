@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="home-container">
+        <h1>Welcome, {{loggedInUser.firstName}}!</h1>
+
+        {{#errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/errorMessage}}
+        {{#successMessage}}
+        <p class="success">{{successMessage}}</p>
+        {{/successMessage}}
+
+        <h2>Your Pending Study Requests</h2>
+        {{#pendingRequests}}
+        <div class="request-card">
+            <p><strong>Request from {{requester.firstName}} {{requester.lastName}}</strong></p>
+            <p>Date: {{studyDate}}</p>
+            <p>Time: {{startTimeFormatted}} to {{endTimeFormatted}}</p>
+            <div class="button-group">
+                <form method="post" action="/study/approve">
+                    <input type="hidden" name="requestId" value="{{requestId}}">
+                    <button type="submit" class="approve-btn">Accept</button>
+                </form>
+                <form method="post" action="/study/reject">
+                    <input type="hidden" name="requestId" value="{{requestId}}">
+                    <button type="submit" class="reject-btn">Decline</button>
+                </form>
+            </div>
+        </div>
+        {{/pendingRequests}}
+        {{^pendingRequests}}
+        <p class="no-data">No pending study requests.</p>
+        {{/pendingRequests}}
+
+        <h2>Followed Users' Availability</h2>
+        {{#followeesAvailability}}
+        <div class="availability-card">
+            <h3>{{user.firstName}} {{user.lastName}}</h3>
+            <p>{{user.firstName}} is available from {{startTimeFormatted}}–{{endTimeFormatted}} on {{availability.studyDate}} to study!</p>
+            {{#sharedClasses}}
+            <p><strong>Shared Class:</strong> {{classCode}} - {{className}}</p>
+            {{/sharedClasses}}
+            {{^sharedClasses}}
+            <p class="no-shared">You don't share any classes with {{user.firstName}}.</p>
+            {{/sharedClasses}}
+            {{#sharedClasses}}
+            <div class="button-group">
+                <form method="post" action="/study/request">
+                    <input type="hidden" name="targetUserId" value="{{user.userId}}">
+                    <input type="hidden" name="availabilityId" value="{{availability.availabilityId}}">
+                    <button type="submit" class="request-btn">Request to Study</button>
+                </form>
+            </div>
+            {{/sharedClasses}}
+        </div>
+        {{/followeesAvailability}}
+        {{^followeesAvailability}}
+        <p class="no-data">No availability available from people you follow.</p>
+        {{/followeesAvailability}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

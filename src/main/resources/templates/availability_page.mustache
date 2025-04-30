@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="availability-container">
+        <h1>Your Availability, {{loggedInUser.firstName}}</h1>
+
+        {{#errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/errorMessage}}
+        {{#successMessage}}
+        <p class="success">{{successMessage}}</p>
+        {{/successMessage}}
+
+        <h2>Add Availability</h2>
+        <form method="post" action="/profile/availability/add">
+            <label for="studyDate">Date:</label>
+            <input type="date" id="studyDate" name="studyDate" required>
+            <label for="startTime">Start Time:</label>
+            <input type="time" id="startTime" name="startTime" required>
+            <label for="endTime">End Time:</label>
+            <input type="time" id="endTime" name="endTime" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <h2>Your Current Availability</h2>
+        {{#availabilityList}}
+        <div class="availability-item">
+            <p>{{studyDate}} from {{startTime}} to {{endTime}}</p>
+            <form method="post" action="/profile/availability/delete">
+                <input type="hidden" name="availabilityId" value="{{availabilityId}}">
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+        </div>
+        {{/availabilityList}}
+        {{^availabilityList}}
+        <p>No availability set.</p>
+        {{/availabilityList}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

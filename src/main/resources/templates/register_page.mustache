@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="register-container">
+        <h1>Register</h1>
+        {{#errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/errorMessage}}
+        <form method="post" action="/register">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="2">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required minlength="2">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required minlength="2">
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Login here</a>.</p>
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

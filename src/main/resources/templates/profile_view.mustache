@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="profile-container">
+        <h1>{{user.firstName}} {{user.lastName}}'s Profile</h1>
+
+        {{#errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/errorMessage}}
+        {{#successMessage}}
+        <p class="success">{{successMessage}}</p>
+        {{/successMessage}}
+
+        <h2>Classes</h2>
+        {{#classes}}
+        <div class="class-item">{{classCode}}</div>
+        {{/classes}}
+        {{^classes}}
+        <p>No classes enrolled.</p>
+        {{/classes}}
+
+        {{#isFollowing}}
+        <form method="post" action="/profile/unfollow" style="display:inline;">
+            <input type="hidden" name="userId" value="{{user.userId}}">
+            <button type="submit" class="follow-btn unfollow" title="Unfollow">★ Unfollow</button>
+        </form>
+        {{/isFollowing}}
+        {{^isFollowing}}
+        {{^isOwnProfile}}
+        <form method="post" action="/profile/follow" style="display:inline;">
+            <input type="hidden" name="userId" value="{{user.userId}}">
+            <button type="submit" class="follow-btn follow" title="Follow">☆ Follow</button>
+        </form>
+        {{/isOwnProfile}}
+        {{/isFollowing}}
+
+        {{#isFollowing}}
+        <h2>Study Availability</h2>
+        {{#availabilityList}}
+        <div class="availability-item">
+            <p>{{studyDate}} from {{startTime}} to {{endTime}}</p>
+            <form method="post" action="/study/request" style="display:inline;">
+                <input type="hidden" name="targetUserId" value="{{user.userId}}">
+                <input type="hidden" name="availabilityId" value="{{availabilityId}}">
+                <button type="submit" class="request-btn">Request Study Session</button>
+            </form>
+        </div>
+        {{/availabilityList}}
+        {{^availabilityList}}
+        <p>No availability set.</p>
+        {{/availabilityList}}
+        {{/isFollowing}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

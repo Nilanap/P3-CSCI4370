@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> fragments/html_header}}
+<body>
+    {{> fragments/top_bar}}
+    <div class="follow-container">
+        <h1>Your Connections</h1>
+
+        <h2>Users You Follow</h2>
+        {{#followees}}
+        <div class="user-item">
+            <a href="/profile/view?userId={{userId}}">{{firstName}} {{lastName}}</a>
+        </div>
+        {{/followees}}
+        {{^followees}}
+        <p>You are not following anyone.</p>
+        {{/followees}}
+
+        <h2>Users Who Follow You</h2>
+        {{#followers}}
+        <div class="user-item">
+            <a href="/profile/view?userId={{userId}}">{{firstName}} {{lastName}}</a>
+        </div>
+        {{/followers}}
+        {{^followers}}
+        <p>No one is following you.</p>
+        {{/followers}}
+    </div>
+    {{> fragments/footer}}
+</body>
+</html>

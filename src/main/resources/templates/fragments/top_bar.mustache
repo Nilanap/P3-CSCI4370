@@ -1,0 +1,23 @@
+<div class="top-bar">
+   <header>
+     <nav>
+        <a href="/">Home</a>
+        <a href="/sessions">Sessions</a>
+        <a href="/search-classes">Search Classes</a>
+        <a href="/profile">My Profile</a>
+        <a href="/profile/availability">Availability</a>
+        <a href="/follow">Connections</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+    <div>
+        {{#loggedInUser}}
+        <span>Welcome, {{firstName}}!</span>
+        <a href="/logout">Logout</a>
+        {{/loggedInUser}}
+        {{^loggedInUser}}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+        {{/loggedInUser}}
+    </div>
+</div>
