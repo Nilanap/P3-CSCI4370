@@ -127,7 +127,7 @@ public class ProfileController {
             return "redirect:/login";
         }
         try {
-            Class newClass = classService.findOrCreateClass(classCode.toUpperCase());
+            Class newClass = classService.findClass(classCode.toUpperCase());
             boolean enrolled = classService.enrollUserInClass(userService.getLoggedInUser().getUserId(), newClass.getClassId());
             if (enrolled) {
                 String successMessage = URLEncoder.encode("Class " + classCode + " added successfully!", StandardCharsets.UTF_8);

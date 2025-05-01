@@ -1,0 +1,1 @@
+Our DDL file is located at `src/main/resources/ddl.sql`.

@@ -1,0 +1,1 @@
+Passwords are stored securely by hashing them using the BCrypt library included with Spring Boot. See `edu.uga.csci4370.group12.project3.Services.UserService::authenticateUser()` and `registerUser()` for more details.

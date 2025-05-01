@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS class (
 );
 
 CREATE TABLE IF NOT EXISTS enrollment (
-    userId INT NOT NULL,
-    classId INT NOT NULL,
+    userId INT,
+    classId INT,
     enrollmentDate DATETIME NOT NULL,
     PRIMARY KEY (userId, classId),
     FOREIGN KEY (userId) REFERENCES user(userId)
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS enrollment (
 );
 
 CREATE TABLE IF NOT EXISTS follow (
-    followerId INT NOT NULL,
-    followeeId INT NOT NULL,
+    followerId INT,
+    followeeId INT,
     followDate DATETIME NOT NULL,
     PRIMARY KEY (followerId, followeeId),
     FOREIGN KEY (followerId) REFERENCES user(userId)
@@ -66,12 +66,10 @@ CREATE TABLE IF NOT EXISTS availability (
 CREATE TABLE IF NOT EXISTS study_request (
     requestId INT AUTO_INCREMENT PRIMARY KEY,
     requesterId INT NOT NULL,
-    targetUserId INT NOT NULL,
     availabilityId INT NOT NULL,
     status ENUM('PENDING', 'APPROVED', 'REJECTED') DEFAULT 'PENDING',
     requestDate DATETIME NOT NULL,
     FOREIGN KEY (requesterId) REFERENCES user(userId),
-    FOREIGN KEY (targetUserId) REFERENCES user(userId),
     FOREIGN KEY (availabilityId) REFERENCES availability(availabilityId),
     UNIQUE (requesterId, availabilityId)
 );

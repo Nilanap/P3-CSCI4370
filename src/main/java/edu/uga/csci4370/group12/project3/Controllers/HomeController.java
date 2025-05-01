@@ -147,9 +147,8 @@ public class HomeController {
 
     @PostMapping("/study/request")
     public ModelAndView createStudyRequest(
-            @RequestParam("targetUserId") String targetUserId,
             @RequestParam("availabilityId") String availabilityId) {
-        LOGGER.info("Processing study request for targetUserId: " + targetUserId + ", availabilityId: " + availabilityId);
+        LOGGER.info("Processing study request for availabilityId: " + availabilityId);
         ModelAndView mv = new ModelAndView("redirect:/");
         if (!userService.isAuthenticated()) {
             LOGGER.info("User not authenticated, redirecting to /login");
@@ -163,8 +162,7 @@ public class HomeController {
         try {
             boolean success = classService.createStudyRequest(
                 loggedInUser.getUserId(),
-                targetUserId,
-                availabilityId
+                    availabilityId
             );
             if (success) {
                 mv.addObject("successMessage", URLEncoder.encode("Study request sent successfully.", StandardCharsets.UTF_8));

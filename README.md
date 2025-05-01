@@ -1,10 +1,21 @@
-# P3-CSCI4370
-Study Buddy Project Plan and Database Design
+# Project 3 - Study Buddy
+
+> For CSCI 4370 - Database Management.
+> Created by Group 12 - Matthew Griffith, Nilan Patel, Michael Scott, and Bryce Wellman.
+
+## Contributions
+
+| Group Member     | Contributions                                                                                  |
+|------------------|------------------------------------------------------------------------------------------------|
+| Matthew Griffith | TODO                                                                                           |
+| Nilan Patel      | TODO                                                                                           |
+| Michael Scott    | Most metadata files (`queries.sql`, `prelim.pdf`, etc.), collecting course data in `data.sql`. |
+| Bryce Wellman    | TODO                                                                                           |
 
 ## Building and Running
 
 1. Open `src/main/resources/application.properties` and change `spring.datasource.url`, `spring.datasource.username`, and `spring.datasource.password` to the URL the database will be stored at, the username to log in with, and the password to log in with, respectively.
-2. If it does not already exist, create the database at the URL you specified using the provided `database.sql` file.
+2. If it does not already exist, create the database at the URL you specified using the provided `ddl.sql` file.
 3. Run the following command:
 
 ```
@@ -13,37 +24,26 @@ mvn spring-boot:run --% -Dspring-boot.run.arguments="--server.port=8081"
 
 This will host the website on `http://localhost:8081/`.
 
-----
+## Database Information
 
-Title for the Project
+Database Name: `study_buddy`
 
-Study Buddy: A Platform for Connecting Classmates for Collaborative Study Sessions
+Database Username: `root`
 
-| Describe the Problem and the Domain |
+Database Password: `mysqlpass`
 
-Problem: Students often struggle to find study partners for specific classes, especially before exams. Coordinating study sessions can be challenging without a centralized platform to match students based on shared classes and facilitate communication.
-Domain: The application operates in the educational technology domain, targeting college or university students who need to collaborate with peers for exam preparation. It addresses the need for efficient matchmaking and communication within an academic context.
+## Demo Logins
 
-| Describe the Solution You Develop |
+TODO
 
-| Solution: Study Buddy is a web-based platform that allows students to: |
-- Register and create a profile with their class schedule, including class codes and IDs.
-- Search for other students enrolled in the same classes using class IDs.
-- Request to connect with potential study partners, with an approval process to confirm the match.
-- Communicate via a messaging system to coordinate study sessions.
+## Used Technologies
 
-| User Interfaces: |
-- Registration/Login Page: Users sign up with a username, password, first name, last name, and optional profile details.
-- Profile Page: Displays user information and allows users to input their class schedule (class code and ID).
-- Class Search Page: Users enter a class ID to find other students enrolled in the same class.
-- Study Request Page: Users can send study requests to others and view pending requests (sent or received).
-- Messaging Interface: A chat-like interface for matched users to exchange messages and plan study sessions.
-- Dashboard: Displays matched study partners, upcoming study sessions, and recent messages.
-
-
-| The Technologies You Will Be Using |
-- Java, MySQL, Docker, Springboot, HTML, CSS, JavaScript
-
-
-
-
+| Technology            | Usage Reason                                                                    |
+|-----------------------|---------------------------------------------------------------------------------|
+| Java                  | Primary backend programming language.                                           |
+| HTML, CSS, JavaScript | Used for creating the Web frontend of the project.                              |
+| Spring Boot           | Used as the basis of the website.                                               |
+| Mustache              | Used to create templates of frontend HTML files to be populated by Spring Boot. |
+| Docker                | Used to host the database used by the project.                                  |
+| MySQL                 | Used as the DBMS for this project.                                              |
+| JDBC                  | Used to communicate with the  MySQL database.                                   |

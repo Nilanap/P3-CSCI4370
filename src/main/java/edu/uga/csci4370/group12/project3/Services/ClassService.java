@@ -31,7 +31,7 @@ public class ClassService {
         this.dataSource = dataSource;
     }
 
-    public Class findOrCreateClass(String classCode) throws SQLException {
+    public Class findClass(String classCode) throws SQLException {
         if (!classCode.matches("^[A-Z]{4}\\d{4}$")) {
             throw new IllegalArgumentException("Class code must be 4 letters followed by 4 digits (e.g., CSCI4370)");
         }
@@ -50,23 +50,7 @@ public class ClassService {
             }
         }
 
-        String className = classCode.substring(0, 4) + " " + classCode.substring(4);
-        String insertSql = "INSERT INTO class (classCode, className) VALUES (?, ?)";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(insertSql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, classCode);
-            pstmt.setString(2, className);
-            pstmt.executeUpdate();
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                return new Class(
-                    String.valueOf(rs.getInt(1)),
-                    classCode,
-                    className
-                );
-            }
-        }
-        throw new SQLException("Failed to create class");
+        throw new SQLException("Class not found");
     }
 
     public boolean enrollUserInClass(String userId, String classId) {
@@ -355,16 +339,15 @@ public class ClassService {
         return followeesAvailability;
     }
 
-    public boolean createStudyRequest(String requesterId, String targetUserId, String availabilityId) {
-        String sql = "INSERT INTO study_request (requesterId, targetUserId, availabilityId, status, requestDate) VALUES (?, ?, ?, 'PENDING', ?)";
+    public boolean createStudyRequest(String requesterId, String availabilityId) {
+        String sql = "INSERT INTO study_request (requesterId, availabilityId, requestDate) VALUES (?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(requesterId));
-            pstmt.setInt(2, Integer.parseInt(targetUserId));
-            pstmt.setInt(3, Integer.parseInt(availabilityId));
-            pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            pstmt.setInt(2, Integer.parseInt(availabilityId));
+            pstmt.setTimestamp(3, java.sql.Timestamp.valueOf(LocalDateTime.now()));
             int rowsAffected = pstmt.executeUpdate();
-            LOGGER.info("Created study request from user " + requesterId + " to " + targetUserId + " for availability " + availabilityId);
+            LOGGER.info("Created study request from user " + requesterId + " for availability " + availabilityId);
             return rowsAffected > 0;
         } catch (SQLException e) {
             if (e.getSQLState().equals("23000")) {
@@ -379,12 +362,13 @@ public class ClassService {
 
     public List<StudyRequest> getPendingStudyRequests(String userId) {
         List<StudyRequest> requests = new ArrayList<>();
-        String sql = "SELECT sr.requestId, sr.requesterId, sr.targetUserId, sr.availabilityId, sr.status, sr.requestDate, " +
+        String sql = "SELECT sr.requestId, sr.requesterId, t.userId AS targetUserId, sr.availabilityId, sr.status, sr.requestDate, " +
                     "u.firstName, u.lastName, a.studyDate, a.startTime, a.endTime " +
                     "FROM study_request sr " +
                     "JOIN user u ON sr.requesterId = u.userId " +
                     "JOIN availability a ON sr.availabilityId = a.availabilityId " +
-                    "WHERE sr.targetUserId = ? AND sr.status = 'PENDING' " +
+                    "JOIN user t ON a.userId = t.userId " +
+                    "WHERE t.userId = ? AND sr.status = 'PENDING' " +
                     "ORDER BY sr.requestDate DESC";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -460,15 +444,15 @@ public class ClassService {
 
     public List<StudySession> getUpcomingStudySessions(String userId) {
         List<StudySession> sessions = new ArrayList<>();
-        String sql = "SELECT sr.requestId, sr.requesterId, sr.targetUserId, sr.availabilityId, sr.status, sr.requestDate, " +
+        String sql = "SELECT sr.requestId, sr.requesterId, t.userId AS targetUserId, sr.availabilityId, sr.status, sr.requestDate, " +
                     "u1.firstName AS requesterFirstName, u1.lastName AS requesterLastName, " +
-                    "u2.firstName AS targetFirstName, u2.lastName AS targetLastName, " +
+                    "t.firstName AS targetFirstName, t.lastName AS targetLastName, " +
                     "a.studyDate, a.startTime, a.endTime " +
                     "FROM study_request sr " +
                     "JOIN user u1 ON sr.requesterId = u1.userId " +
-                    "JOIN user u2 ON sr.targetUserId = u2.userId " +
                     "JOIN availability a ON sr.availabilityId = a.availabilityId " +
-                    "WHERE (sr.requesterId = ? OR sr.targetUserId = ?) AND sr.status = 'APPROVED' AND a.studyDate >= CURRENT_DATE " +
+                    "JOIN user t ON t.userId = a.userId " +
+                    "WHERE (sr.requesterId = ? OR t.userId = ?) AND sr.status = 'APPROVED' AND a.studyDate >= CURRENT_DATE " +
                     "ORDER BY a.studyDate, a.startTime";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
