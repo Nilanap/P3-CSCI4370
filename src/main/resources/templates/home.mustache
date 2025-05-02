@@ -46,7 +46,7 @@
             {{^sharedClasses}}
             <p class="no-shared">You don't share any classes with {{user.firstName}}.</p>
             {{/sharedClasses}}
-            {{#sharedClasses}}
+            {{#sharedClasses.0}}
             <div class="button-group">
                 <form method="post" action="/study/request">
                     <input type="hidden" name="targetUserId" value="{{user.userId}}">
@@ -54,7 +54,7 @@
                     <button type="submit" class="request-btn">Request to Study</button>
                 </form>
             </div>
-            {{/sharedClasses}}
+            {{/sharedClasses.0}}
         </div>
         {{/followeesAvailability}}
         {{^followeesAvailability}}

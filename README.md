@@ -14,7 +14,9 @@
 
 ## Building and Running
 
-1. Open `src/main/resources/application.properties` and change `spring.datasource.url`, `spring.datasource.username`, and `spring.datasource.password` to the URL the database will be stored at, the username to log in with, and the password to log in with, respectively.
+1. Open `src/main/resources/application.properties` and change `spring.datasource.url`, `spring.datasource.username`,
+   and `spring.datasource.password` to the URL the database will be stored at, the username to log in with, and the
+   password to log in with, respectively.
 2. If it does not already exist, create the database at the URL you specified using the provided `ddl.sql` file.
 3. Run the following command:
 
@@ -34,7 +36,12 @@ Database Password: `mysqlpass`
 
 ## Demo Logins
 
-TODO
+| Username   | Password  |
+|------------|-----------|
+| TUser12001 | password1 |
+| TUser22002 | password2 |
+| TUser32003 | password3 |
+| TUser42004 | password4 |
 
 ## Used Technologies
 

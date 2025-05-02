@@ -1,1 +1,0 @@
-Data for the `class` table was pulled from the [UGA Bulletin](https://bulletin.uga.edu/coursesHome).
