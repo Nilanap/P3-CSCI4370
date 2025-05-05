@@ -1,0 +1,37 @@
+Indexing Statement 1:
+
+```sql
+CREATE INDEX enrollment_userId ON enrollment(userId);
+```
+
+Affected Query:
+
+```sql
+SELECT c.classId, c.classCode, c.className
+FROM class c
+         JOIN enrollment e ON c.classId = e.classId
+WHERE e.userId = ?;
+```
+
+Time Consumption Before: 0.00s
+Time Consumption After: 0.00s
+
+---
+
+Indexing Statement 2:
+
+```sql
+CREATE INDEX follow_followerId ON follow(followerId);
+```
+
+Affected Query:
+
+```sql
+SELECT u.userId, u.username, u.firstName, u.lastName
+FROM user u
+         JOIN follow f ON u.userId = f.followeeId
+WHERE f.followerId = ?;
+```
+
+Time Consumption Before: 0.00s
+Time Consumption After: 0.00s

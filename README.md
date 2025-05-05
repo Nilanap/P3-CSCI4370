@@ -7,10 +7,10 @@
 
 | Group Member     | Contributions                                                                                  |
 |------------------|------------------------------------------------------------------------------------------------|
-| Matthew Griffith | TODO                                                                                           |
-| Nilan Patel      | TODO                                                                                           |
+| Matthew Griffith | App idea, planning and organization, indexing.                                                 |
+| Nilan Patel      | Most frontend work (Java code, HTML/CSS/JS).                                                   |
 | Michael Scott    | Most metadata files (`queries.sql`, `prelim.pdf`, etc.), collecting course data in `data.sql`. |
-| Bryce Wellman    | TODO                                                                                           |
+| Bryce Wellman    | Following feature, misc..                                                                      |
 
 ## Building and Running
 
@@ -53,4 +53,4 @@ Database Password: `mysqlpass`
 | Mustache              | Used to create templates of frontend HTML files to be populated by Spring Boot. |
 | Docker                | Used to host the database used by the project.                                  |
 | MySQL                 | Used as the DBMS for this project.                                              |
-| JDBC                  | Used to communicate with the  MySQL database.                                   |
+| JDBC                  | Used to communicate with the MySQL database.                                    |
